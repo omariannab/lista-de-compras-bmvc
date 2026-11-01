@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nome": "Sabonete",
+        "quantidade": "4",
+        "comprado": false
+    },
+    {
+        "id": 2,
+        "nome": "Açúcar",
+        "quantidade": "1kg",
+        "comprado": true
+    }
+]

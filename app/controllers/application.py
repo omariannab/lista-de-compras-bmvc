@@ -1,21 +1,24 @@
 from bottle import template
-
+from app.controllers.datarecord import DataRecord
 
 class Application():
 
     def __init__(self):
+        self.dr = DataRecord()
         self.pages = {
             'lista': self.lista
         }
-
 
     def render(self,page):
        content = self.pages.get(page, self.helper)
        return content()
 
-
     def helper(self):
         return template('app/views/html/helper')
 
     def lista(self):
-        return template('app/views/html/lista')
+        return template('app/views/html/lista', produtos=self.dr.produtos)
+
+    def editar(self, id):
+        produto = self.dr.buscar(id)
+        return template('app/views/html/editar', produto=produto)

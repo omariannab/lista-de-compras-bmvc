@@ -26,6 +26,34 @@ def helper(info= None):
 def lista():
     return ctl.render('lista')
 
+@app.route('/adicionar', method='POST')
+def adicionar():
+    nome = request.forms.getunicode('nome')
+    quantidade = request.forms.getunicode('quantidade')
+    ctl.dr.adicionar(nome, quantidade)
+    redirect('/lista')
+
+@app.route('/excluir/<id:int>', method='POST')
+def excluir(id):
+    ctl.dr.excluir(id)
+    redirect('/lista')
+
+@app.route('/marcar/<id:int>', method='POST')
+def marcar(id):
+    ctl.dr.marcar(id)
+    redirect('/lista')
+
+@app.route('/editar/<id:int>')
+def pagina_editar(id):
+    return ctl.editar(id)
+
+@app.route('/editar/<id:int>', method='POST')
+def salvar_editar(id):
+    nome = request.forms.getunicode('nome')
+    quantidade = request.forms.getunicode('quantidade')
+    ctl.dr.editar(id, nome, quantidade)
+    redirect('/lista')
+
 #-----------------------------------------------------------------------------
 
 

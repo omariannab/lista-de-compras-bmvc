@@ -11,6 +11,13 @@ function atualizarProgresso() {
     }
 
     let total = linhas.length;
+
+    if (total === 0) {
+        barra.style.width = "0%";
+        texto.textContent = "Nenhum item na lista";
+        return;
+    }
+
     let porcentagem = (comprados / total) * 100;
     barra.style.width = `${porcentagem}%`;
 
@@ -25,15 +32,7 @@ atualizarProgresso();
 
 for (let linha of linhas) {
     linha.addEventListener("click", function () {
-        linha.classList.toggle("comprado");
-
-        let situacao = linha.children[2];
-        if (linha.classList.contains("comprado")) {
-            situacao.textContent = "Comprado";
-        } else {
-            situacao.textContent = "Falta comprar";
-        }
-
-        atualizarProgresso();
+        let form = linha.querySelector(".form-marcar")
+        form.submit();
     });
 }
