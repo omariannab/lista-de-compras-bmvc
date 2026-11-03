@@ -15,3 +15,16 @@ Os produtos agora ficam salvos no arquivo `produtos.json` e a lista tem CRUD com
 - **marcar** como comprado clicando na linha;
 - **editar** o nome e a quantidade;
 - **excluir** produtos.
+
+## Nível 3
+
+A lista agora tem login: só quem entra com usuário e senha consegue ver e mexer nos produtos. Quem tenta abrir a lista sem login é levado para a página de entrada.
+
+Usuários para teste:
+
+| Usuário | Senha |
+|---|---|
+| mari | 191 |
+| isa | 108 |
+
+Para entrar, abra `http://localhost:8080/login`.
