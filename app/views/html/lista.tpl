@@ -12,6 +12,13 @@
 
         <div class="topo">
             <h1>Lista de Compras</h1>
+
+            <div class="usuario">
+                Olá, {{usuario.nome}}
+                <form action="/sair" method="post">
+                     <button type="submit">Sair</button>
+                </form>
+            </div>
         </div>
 
         <div class="picote"></div>

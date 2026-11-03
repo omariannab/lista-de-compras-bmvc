@@ -33,6 +33,9 @@ body {
     background-color: #3A6EA5;
     padding: 28px 30px 14px;
     border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {
@@ -245,4 +248,61 @@ input:focus {
 
 .voltar:hover {
     text-decoration: underline;
+}
+
+/* ---------- topo usuario ---------- */
+
+.usuario {
+    color: white;
+    font-size: 16px;
+}
+
+.usuario form {
+    display: inline;
+    margin-left: 10px;
+}
+
+.usuario button {
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 4px 16px;
+}
+
+.usuario button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- login ---------- */
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.form-login label {
+    font-weight: bold;
+    color: #3A6EA5;
+    font-size: 16px;
+}
+
+.form-login input {
+    flex: none;
+    margin-bottom: 8px;
+}
+
+.form-login button {
+    align-self: flex-start;
+    margin-top: 6px;
+}
+
+
+/* ------------ erro login ----------*/
+
+.erro {
+    color: #C0504D;
+    font-size: 14px;
+    margin: 0;
+    min-height: 18px;
 }
