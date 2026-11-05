@@ -66,4 +66,3 @@ O `-c` salva o cookie recebido no login e o `-b` envia esse cookie nos pedidos s
 
 Depois de cada comando, o resultado aparece na página `/lista` (o READ).
 
-> Ao reiniciar o servidor, as sessões são apagadas: é preciso fazer o login pelo cURL de novo.
