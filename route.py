@@ -84,6 +84,29 @@ def fazer_logout():
     response.delete_cookie('sessao')
     redirect('/login')
 
+@app.route('/api/produtos', method='POST')
+def api_adicionar():
+    if ctl.usuario_atual() == None:
+        response.status = 401
+        return "Faça login primeiro\n"
+    else:
+        nome = request.forms.getunicode('nome')
+        quantidade = request.forms.getunicode('quantidade')
+        ctl.dr.adicionar(nome, quantidade)
+        return f"Produto {nome} adicionado\n"
+
+@app.route('/api/produtos/<id:int>', method='DELETE')
+def api_excluir(id):
+    if ctl.usuario_atual() == None:
+        response.status = 401
+        return "Faça login primeiro\n"
+    else:
+        produto = ctl.dr.buscar(id)
+        if produto == None:
+            response.status = 404
+            return f"Produto {id} não encontrado\n"
+        ctl.dr.excluir(id)
+        return f"Produto {id} excluído\n"
 
 #-----------------------------------------------------------------------------
 
