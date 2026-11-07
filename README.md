@@ -5,7 +5,23 @@
 
 Projeto de Orientação a Objetos feito com o BMVC (Bottle + MVC). Uma lista de compras em que cada produto pode ser marcado como comprado, com uma barra mostrando o progresso. Cada pessoa tem sua conta, cria suas listas e pode compartilhá-las com outras pessoas.
 
-**Como executar:** rode `python3 route.py` e abra `http://localhost:8080/login`.
+## Como executar
+
+1. Instale o Bottle: `sudo apt install python3-bottle`
+2. Na pasta do projeto, rode `python3 route.py`
+3. Abra `http://localhost:8080/login` no navegador
+
+## Tecnologias
+
+- **Python** com o **Bottle** (servidor e rotas)
+- **HTML** (templates `.tpl`), **CSS** e **JavaScript**
+- **JSON** (os dados ficam salvos em arquivos)
+
+## Nível 1
+
+- Página da lista servida pelo Bottle, com tabela de produtos (nome, quantidade e situação).
+- Ao clicar num produto, ele é marcado (ou desmarcado) como comprado: a linha fica riscada.
+- Barra de progresso e texto "X de Y itens comprados", que se atualizam a cada clique. Quando tudo está comprado, aparece "Tudo comprado!".
 
 ## Nível 2
 
@@ -32,11 +48,61 @@ Usuários para teste:
 | mari | 191 |
 | isa | 108 |
 
+### CREATE e DELETE pelo cURL
+
+O CREATE e o DELETE são feitos pelo terminal, com o cURL, nas rotas `/api/produtos`. Essas rotas exigem usuário logado, então o primeiro passo é entrar pelo cURL e guardar o cookie da sessão.
+
+Com o servidor rodando, em outro terminal:
+
+**1. Entrar** (salva o cookie no arquivo `cookies.txt`):
+```bash
+curl -c cookies.txt -d "usuario=mari&senha=191" localhost:8080/login
+```
+
+**2. CREATE** (adiciona um produto):
+```bash
+curl -b cookies.txt -d "nome=Feijão&quantidade=2" localhost:8080/api/produtos
+```
+Resposta: `Produto Feijão adicionado`
+
+**3. DELETE** (exclui o produto pelo id):
+```bash
+curl -b cookies.txt -X DELETE localhost:8080/api/produtos/2
+```
+Resposta: `Produto 2 excluído`
+
+O `-c` salva o cookie recebido na entrada e o `-b` envia esse cookie nos pedidos seguintes, para o servidor saber quem está logado.
+
+**Respostas de erro:**
+
+| Situação | Código | Resposta |
+|---|---|---|
+| Pedido sem usuário logado | 401 | `Faça login primeiro` |
+| Id que não existe | 404 | `Produto 999 não encontrado` |
+
+Depois de cada comando, o resultado aparece na página da lista (o READ).
+
 ## Listas compartilhadas
 
 - Cada usuário vê só as listas em que participa (`/listas`) e pode criar novas.
-- Cada lista tem um dono e participantes. O dono compartilha a lista com outro usuário pelo botão **+**.
+- Cada lista tem um dono e participantes. O dono compartilha a lista com outro usuário pelo botão **+**, que abre a lista de participantes.
+- A página da lista mostra os participantes e quantos são.
 - O dono pode remover participantes; quem não é dono pode sair da lista.
 - Só o dono pode excluir a lista, o que apaga também os produtos dela.
 - Antes de excluir a lista, remover alguém ou sair da lista, o sistema pede confirmação.
+- Só os participantes conseguem abrir uma lista; quem não participa é levado de volta para `/listas`.
 - As listas ficam salvas em `listas.json` (modelo `Lista`).
+
+## Organização do código
+
+| Arquivo | Função |
+|---|---|
+| `route.py` | rotas da aplicação |
+| `app/controllers/application.py` | controlador principal: confere o usuário e a permissão e escolhe a página |
+| `app/controllers/auth.py` | cadastro, entrada, sessão e saída dos usuários |
+| `app/controllers/listarecord.py` | leitura e gravação das listas |
+| `app/controllers/datarecord.py` | leitura e gravação dos produtos |
+| `app/models/` | classes `Usuario`, `Lista` e `Produto` |
+| `app/controllers/db/` | arquivos JSON com os dados |
+| `app/views/html/` | páginas: entrada, cadastro, minhas listas, lista e edição de produto |
+| `app/static/` | CSS e JavaScript |
