@@ -1,85 +1,68 @@
-# Lista de Compras Compartilhada
+## Lista de Compras Compartilhada
 
 **Nome:** Marianna Barbosa de Oliveira
 **Matrícula:** 252014386
 
-Projeto da disciplina de Orientação a Objetos (UnB), desenvolvido sobre a estrutura **BMVC** (Bottle + MVC) fornecida pelo professor.
+Projeto de Orientação a Objetos feito com o BMVC (Bottle + MVC). Uma lista de compras em que cada produto pode ser marcado como comprado, com uma barra mostrando o progresso.
 
-## Sobre o projeto
+**Como executar:** rode `python3 route.py` e abra `http://localhost:8080/login`.
 
-Uma lista de compras compartilhada: cada pessoa tem sua conta, cria listas, adiciona produtos com quantidade, marca o que já foi comprado e pode compartilhar a lista com outras pessoas.
+## Nível 2
 
-## Funcionalidades
+Os produtos agora ficam salvos no arquivo `produtos.json` e a lista tem CRUD completo pela página:
 
-### Nível 1 (BMVC I)
+- **adicionar** produtos pelo formulário;
+- **marcar** como comprado clicando na linha;
+- **editar** o nome e a quantidade;
+- **excluir** produtos.
 
-- Página da lista servida pelo Bottle, a partir do template `lista.tpl`.
-- Tabela de produtos com nome, quantidade e situação.
-- Ao clicar num produto, ele é marcado (ou desmarcado) como comprado: a linha fica riscada e a situação muda para "comprado".
-- Barra de progresso e texto "X de Y itens comprados", que se atualizam a cada clique. Quando todos os itens são comprados, aparece "Tudo comprado!".
+## Nível 3
 
-### Nível 2 (BMVC II)
+O sistema tem dois recursos:
 
-- Produtos guardados em arquivo JSON (`produtos.json`), com classe `Produto` e controlador `DataRecord`.
-- Adicionar, editar e excluir produtos pela página (formulários e página `editar.tpl`).
+- **Portal** (`/login`): página de login com usuário e senha (modelo `Usuario`, verificado pela classe `Auth`).
+- **Banco** (`/lista`): lista dos produtos cadastrados. Só abre para quem fez login; quem tenta entrar sem login é levado para o portal. É aqui que fica o **READ**.
 
-### Nível 3 (BMVC III)
+Cada produto tem os atributos `id`, `nome`, `quantidade` e `comprado` (modelo `Produto`).
 
-- Cadastro de usuários e entrada com usuário e senha (`cadastro.tpl`, `login.tpl`), com sessão por cookie.
-- Usuários guardados em `usuarios.json` (classe `Usuario`, controlador `Auth`).
-- Rotas protegidas: sem usuário logado, o acesso é redirecionado para a página de entrada.
-- Rotas de API para criar e excluir produtos pelo `curl` (`/api/produtos`).
+Usuários para teste:
 
-### Além do enunciado: listas compartilhadas
-
-- Página "Minhas listas" (`/listas`): mostra as listas em que a pessoa participa, com o dono e os participantes, e permite criar novas listas.
-- Cada lista tem seus próprios produtos; só os participantes conseguem abrir a lista.
-- Compartilhar a lista com outro usuário cadastrado (botão **+** ao lado das iniciais dos participantes).
-- O dono pode remover participantes; quem não é dono pode sair da lista.
-- Apenas o dono pode excluir a lista, e isso apaga também os produtos dela.
-- Pedido de confirmação antes de excluir a lista, remover alguém ou sair da lista.
-- Listas guardadas em `listas.json` (classe `Lista`, controlador `ListaRecord`).
-
-## Tecnologias
-
-- **Python** com o framework **Bottle** (servidor e rotas)
-- **HTML** (templates `.tpl`)
-- **CSS** (aparência)
-- **JavaScript** (interação na página)
-- **JSON** (armazenamento dos dados)
-
-## Como executar
-
-1. Instale o Bottle:
-   ```
-   sudo apt install python3-bottle
-   ```
-2. Na pasta raiz do projeto, rode:
-   ```
-   python3 route.py
-   ```
-3. Abra no navegador: **http://localhost:8080/login**
-
-Também é possível executar com Docker:
-```
-docker build -t bmvci .
-docker run -d -p 8080:8080 -v $(pwd):/app bmvci
-```
-
-## Arquivos do projeto
-
-| Arquivo | Função |
+| Usuário | Senha |
 |---|---|
-| `route.py` | rotas da aplicação |
-| `app/controllers/application.py` | controlador principal: confere usuário e permissão e escolhe a página |
-| `app/controllers/auth.py` | cadastro, entrada, sessão e saída dos usuários |
-| `app/controllers/listarecord.py` | leitura e gravação das listas (`listas.json`) |
-| `app/controllers/datarecord.py` | leitura e gravação dos produtos (`produtos.json`) |
-| `app/models/usuario.py`, `lista.py`, `produto.py` | classes dos dados |
-| `app/controllers/db/*.json` | arquivos onde os dados ficam guardados |
-| `app/views/html/login.tpl`, `cadastro.tpl` | páginas de entrada e cadastro |
-| `app/views/html/listas.tpl` | página "Minhas listas" |
-| `app/views/html/lista.tpl` | página de uma lista |
-| `app/views/html/editar.tpl` | página de edição de produto |
-| `app/static/css/lista.css` | o estilo das páginas |
-| `app/static/js/lista.js` | a interação: marcar itens, progresso e painel de participantes |
+| mari | 191 |
+| isa | 108 |
+
+### CREATE e DELETE pelo cURL
+
+O CREATE e o DELETE são feitos pelo terminal, com o cURL, nas rotas `/api/produtos`. Essas rotas exigem login, então o primeiro passo é entrar pelo cURL e guardar o cookie da sessão.
+
+Com o servidor rodando, em outro terminal:
+
+**1. Login** (salva o cookie no arquivo `cookies.txt`):
+```bash
+curl -c cookies.txt -d "usuario=mari&senha=191" localhost:8080/login
+```
+
+**2. CREATE** (adiciona um produto):
+```bash
+curl -b cookies.txt -d "nome=Feijão&quantidade=2" localhost:8080/api/produtos
+```
+Resposta: `Produto Feijão adicionado`
+
+**3. DELETE** (exclui o produto pelo id):
+```bash
+curl -b cookies.txt -X DELETE localhost:8080/api/produtos/2
+```
+Resposta: `Produto 2 excluído`
+
+O `-c` salva o cookie recebido no login e o `-b` envia esse cookie nos pedidos seguintes, para o servidor saber quem está logado.
+
+**Respostas de erro:**
+
+| Situação | Código | Resposta |
+|---|---|---|
+| Pedido sem login | 401 | `Faça login primeiro` |
+| Id que não existe | 404 | `Produto 999 não encontrado` |
+
+Depois de cada comando, o resultado aparece na página `/lista` (o READ).
+
