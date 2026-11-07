@@ -3,13 +3,13 @@
 **Nome:** Marianna Barbosa de Oliveira
 **Matrícula:** 252014386
 
-Projeto de Orientação a Objetos feito com o BMVC (Bottle + MVC). Uma lista de compras em que cada produto pode ser marcado como comprado, com uma barra mostrando o progresso.
+Projeto de Orientação a Objetos feito com o BMVC (Bottle + MVC). Uma lista de compras em que cada produto pode ser marcado como comprado, com uma barra mostrando o progresso. Cada pessoa tem sua conta, cria suas listas e pode compartilhá-las com outras pessoas.
 
 **Como executar:** rode `python3 route.py` e abra `http://localhost:8080/login`.
 
 ## Nível 2
 
-Os produtos agora ficam salvos no arquivo `produtos.json` e a lista tem CRUD completo pela página:
+Os produtos ficam salvos no arquivo `produtos.json` e a lista tem CRUD completo pela página:
 
 - **adicionar** produtos pelo formulário;
 - **marcar** como comprado clicando na linha;
@@ -18,12 +18,12 @@ Os produtos agora ficam salvos no arquivo `produtos.json` e a lista tem CRUD com
 
 ## Nível 3
 
-O sistema tem dois recursos:
+O sistema tem controle de acesso de usuários:
 
-- **Portal** (`/login`): página de login com usuário e senha (modelo `Usuario`, verificado pela classe `Auth`).
-- **Banco** (`/lista`): lista dos produtos cadastrados. Só abre para quem fez login; quem tenta entrar sem login é levado para o portal. É aqui que fica o **READ**.
+- **Portal** (`/login`): página de entrada com usuário e senha (modelo `Usuario`, verificado pela classe `Auth`). Também é possível se cadastrar (`/cadastro`).
+- **Banco** (`/listas`): página restrita, que mostra as listas do usuário. Quem tenta entrar sem estar logado é levado para o portal.
 
-Cada produto tem os atributos `id`, `nome`, `quantidade` e `comprado` (modelo `Produto`).
+Cada produto tem os atributos `id`, `nome`, `quantidade`, `comprado` e `lista_id` (modelo `Produto`).
 
 Usuários para teste:
 
@@ -32,37 +32,11 @@ Usuários para teste:
 | mari | 191 |
 | isa | 108 |
 
-### CREATE e DELETE pelo cURL
+## Listas compartilhadas
 
-O CREATE e o DELETE são feitos pelo terminal, com o cURL, nas rotas `/api/produtos`. Essas rotas exigem login, então o primeiro passo é entrar pelo cURL e guardar o cookie da sessão.
-
-Com o servidor rodando, em outro terminal:
-
-**1. Login** (salva o cookie no arquivo `cookies.txt`):
-```bash
-curl -c cookies.txt -d "usuario=mari&senha=191" localhost:8080/login
-```
-
-**2. CREATE** (adiciona um produto):
-```bash
-curl -b cookies.txt -d "nome=Feijão&quantidade=2" localhost:8080/api/produtos
-```
-Resposta: `Produto Feijão adicionado`
-
-**3. DELETE** (exclui o produto pelo id):
-```bash
-curl -b cookies.txt -X DELETE localhost:8080/api/produtos/2
-```
-Resposta: `Produto 2 excluído`
-
-O `-c` salva o cookie recebido no login e o `-b` envia esse cookie nos pedidos seguintes, para o servidor saber quem está logado.
-
-**Respostas de erro:**
-
-| Situação | Código | Resposta |
-|---|---|---|
-| Pedido sem login | 401 | `Faça login primeiro` |
-| Id que não existe | 404 | `Produto 999 não encontrado` |
-
-Depois de cada comando, o resultado aparece na página `/lista` (o READ).
-
+- Cada usuário vê só as listas em que participa (`/listas`) e pode criar novas.
+- Cada lista tem um dono e participantes. O dono compartilha a lista com outro usuário pelo botão **+**.
+- O dono pode remover participantes; quem não é dono pode sair da lista.
+- Só o dono pode excluir a lista, o que apaga também os produtos dela.
+- Antes de excluir a lista, remover alguém ou sair da lista, o sistema pede confirmação.
+- As listas ficam salvas em `listas.json` (modelo `Lista`).
