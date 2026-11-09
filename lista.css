@@ -1,0 +1,496 @@
+/* ---------- Página ---------- */
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: #2C3E50;
+    background: linear-gradient(100deg, #E8EEF4, #F7F9FB 40%, #E3EAF1 70%, #F2F5F8);
+    min-height: 100vh;
+    margin: 0;
+    padding: 60px 20px;
+}
+
+/* ---------- O bloquinho ---------- */
+
+.bloco {
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.ima {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    margin-left: -26px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #7FB0E0, #3A6EA5 60%, #2C5687);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.topo {
+    background-color: #3A6EA5;
+    padding: 28px 30px 14px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 46px;
+    color: white;
+    margin: 0;
+}
+
+.picote {
+    height: 10px;
+    background-color: #FFFDF5;
+    background-image: radial-gradient(circle, #DCE4ED 3px, transparent 4px);
+    background-size: 14px 10px;
+}
+
+.folha {
+    background-color: #FFFDF5;
+    padding: 10px 30px 26px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 14px 26px rgba(44, 62, 80, 0.2);
+}
+
+/* ---------- A lista ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+td {
+    padding: 12px 4px;
+    border-bottom: 2px dashed #E1E8F0;
+    font-size: 20px;
+}
+
+.nome {
+    width: 34%;
+}
+
+.quantidade {
+    width: 22%;
+    color: #6B7B8C;
+    font-size: 18px;
+}
+
+.situacao {
+    width: 16%;
+}
+
+.item {
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #F3F7FC;
+}
+
+/* bolinha de marcar antes do nome */
+.nome::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #3A6EA5;
+    border-radius: 50%;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+.comprado .nome::before {
+    content: "✓";
+    background-color: #3A6EA5;
+    color: white;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.comprado td {
+    color: #A3AFBC;
+    text-decoration: line-through;
+    text-decoration-color: #A3AFBC;
+    text-decoration-thickness: 1px;
+}
+
+.comprado .acoes {
+    text-decoration: none;
+}
+
+/* etiquetas da situação */
+.etiqueta {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 14px;
+    border-radius: 12px;
+    background-color: #FFE9A8;
+    color: #8A6200;
+}
+
+.comprado .etiqueta {
+    background-color: #D7EEDF;
+    color: #2F7A4F;
+}
+
+/* editar e excluir */
+.acoes {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.acoes form {
+    display: inline;
+    margin-left: 8px;
+}
+
+/* ---------- Minhas listas ---------- */
+
+.item-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 8px;
+    border-bottom: 2px dashed #E1E8F0;
+}
+
+.item-lista:hover {
+    background-color: #F3F7FC;
+}
+
+.item-lista a {
+    font-size: 22px;
+    color: #2C3E50;
+    text-decoration: none;
+    display: block;
+}
+
+.titulo-lista {
+    font-size: 22px;
+}
+
+.nome-lista {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-lista .dono {
+    font-size: 12px;
+    background-color: #D6E6F7;
+    color: #3A6EA5;
+    padding: 1px 10px;
+    border-radius: 10px;
+}
+
+.info {
+    flex: 1;
+}
+
+.info small {
+    display: block;
+    font-size: 14px;
+    color: #6B7B8C;
+    margin-top: 2px;
+}
+
+.vazio {
+    color: #6B7B8C;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+}
+
+/* ---------- Botões e caixas de texto ---------- */
+
+button {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    background-color: #3A6EA5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 22px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2C5687;
+}
+
+.acoes button {
+    font-weight: normal;
+    font-size: 16px;
+    background-color: transparent;
+    color: #3A6EA5;
+    padding: 0;
+}
+
+.acoes button:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.acoes .excluir {
+    color: #C0504D;
+}
+
+.formulario {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    color: #2C3E50;
+    padding: 6px 16px;
+    border: 2px solid #D6E6F7;
+    border-radius: 20px;
+    background-color: white;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3A6EA5;
+}
+
+/* ---------- Barra de progresso ---------- */
+
+#progresso {
+    background-color: #E4EEF8;
+    height: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 26px;
+}
+
+#barra {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6FA3D8, #3A6EA5);
+    border-radius: 10px;
+    transition: width 0.5s;
+}
+
+#texto-progresso {
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    color: #3A6EA5;
+    text-align: center;
+    margin: 6px 0 0;
+}
+
+/* ---------- voltar ---------- */
+.voltar {
+    display: inline-block;
+    margin-top: 16px;
+    color: #3A6EA5;
+    text-decoration: none;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}
+
+/* ---------- topo usuario ---------- */
+
+.usuario {
+    color: white;
+    font-size: 16px;
+}
+
+.usuario form {
+    display: inline;
+    margin-left: 10px;
+}
+
+.usuario button {
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 4px 16px;
+}
+
+.usuario button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- login ---------- */
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.form-login label {
+    font-weight: bold;
+    color: #3A6EA5;
+    font-size: 16px;
+}
+
+.form-login input {
+    flex: none;
+    margin-bottom: 8px;
+}
+
+.form-login button {
+    align-self: flex-start;
+    margin-top: 6px;
+}
+
+
+/* ------------ erro login ----------*/
+
+.erro {
+    color: #C0504D;
+    font-size: 14px;
+    margin: 0;
+    min-height: 18px;
+}
+
+/* ---------- Participantes no topo ---------- */
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pessoas {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bolinha {
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color: white;
+    color: #3A6EA5;
+    border: 2px solid #3A6EA5;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -8px;
+}
+
+.bolinha.mais {
+    background-color: transparent;
+    color: white;
+    border: 2px dashed white;
+    font-size: 20px;
+    margin-left: 14px;
+    cursor: pointer;
+}
+
+.painel {
+    display: none;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    z-index: 5;
+    width: 300px;
+    background-color: white;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(44, 62, 80, 0.25);
+}
+
+.painel.aberto {
+    display: block;
+}
+
+.painel form {
+    display: flex;
+    gap: 8px;
+}
+
+.painel input {
+    font-size: 15px;
+    padding: 5px 12px;
+}
+
+.painel button {
+    font-size: 15px;
+    padding: 6px 14px;
+}
+
+.topo .erro {
+    color: #FFD6D6;
+}
+
+/*remover pessoa*/
+
+.linha-pessoa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #F4F8FC;
+}
+
+.lista-participantes {
+    margin-bottom: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.painel .remover {
+    background-color: transparent;
+    color: #3A6EA5;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 0;
+}
+
+.painel .remover:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/* excluir lista */
+
+.item-lista form {
+    margin-left: 16px;
+}
+
+.excluir_lista {
+    background-color: transparent;
+    color: #C0504D;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 0;
+}
+
+.excluir_lista:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/*rodapé*/
+
+.rodape-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
