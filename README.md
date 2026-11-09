@@ -8,14 +8,16 @@ Projeto de Orientação a Objetos feito com o BMVC (Bottle + MVC). Uma lista de 
 ## Como executar
 
 1. Instale o Bottle: `sudo apt install python3-bottle`
-2. Na pasta do projeto, rode `python3 route.py`
-3. Abra `http://localhost:8080/login` no navegador
+2. Instale o suporte a WebSocket: `pip install --break-system-packages bottle-websocket`
+3. Na pasta do projeto, rode `python3 route.py`
+4. Abra `http://localhost:8080/login` no navegador
 
 ## Tecnologias
 
 - **Python** com o **Bottle** (servidor e rotas)
 - **HTML** (templates `.tpl`), **CSS** e **JavaScript**
 - **JSON** (os dados ficam salvos em arquivos)
+- **WebSocket** com a biblioteca **bottle-websocket** (atualização em tempo real)
 
 ## Nível 1
 
@@ -93,11 +95,28 @@ Depois de cada comando, o resultado aparece na página da lista (o READ).
 - Só os participantes conseguem abrir uma lista; quem não participa é levado de volta para `/listas`.
 - As listas ficam salvas em `listas.json` (modelo `Lista`).
 
+## Nível 4
+
+A página da lista é atualizada em tempo real, sem precisar recarregar. Quando uma pessoa faz uma ação, as outras pessoas que estão com a mesma lista aberta veem a mudança na hora.
+
+Aparecem ao vivo:
+
+- produto **adicionado**, **marcado/desmarcado**, **editado** e **excluído** (a barra de progresso também se atualiza);
+- pessoa **adicionada** à lista: a bolinha dela aparece no topo e a linha dela entra na lista de participantes (o botão Remover só aparece para o dono);
+- pessoa **removida** da lista: a bolinha e a linha somem; quem foi removido é levado para `/listas`.
+
+### Como funciona
+
+- As ações continuam sendo feitas por HTTP (formulários). O WebSocket só serve para o servidor **avisar** as outras páginas abertas.
+- Cada página da lista abre uma conexão WebSocket em `/ws/<id da lista>` (`lista.js`).
+- O servidor guarda as conexões abertas (`conexoes`, em `route.py`). Depois de cada ação, a função `avisar` manda um aviso em JSON só para as conexões daquela lista, por exemplo `{"tipo": "marcado", "produto_id": 3, "comprado": true}`.
+- O `lista.js` recebe o aviso (`onmessage`) e, conforme o `tipo` (`adicionado`, `marcado`, `editado`, `excluido`, `compartilhado`, `removido`), altera a página.
+
 ## Organização do código
 
 | Arquivo | Função |
 |---|---|
-| `route.py` | rotas da aplicação |
+| `route.py` | rotas da aplicação e o WebSocket (`/ws/<id da lista>` e a função `avisar`) |
 | `app/controllers/application.py` | controlador principal: confere o usuário e a permissão e escolhe a página |
 | `app/controllers/auth.py` | cadastro, entrada, sessão e saída dos usuários |
 | `app/controllers/listarecord.py` | leitura e gravação das listas |
@@ -105,4 +124,4 @@ Depois de cada comando, o resultado aparece na página da lista (o READ).
 | `app/models/` | classes `Usuario`, `Lista` e `Produto` |
 | `app/controllers/db/` | arquivos JSON com os dados |
 | `app/views/html/` | páginas: entrada, cadastro, minhas listas, lista e edição de produto |
-| `app/static/` | CSS e JavaScript |
+| `app/static/` | CSS e JavaScript (`lista.js` recebe os avisos do WebSocket) |
