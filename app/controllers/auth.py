@@ -32,3 +32,26 @@ class Auth:
         if codigo in self.logados:
             del self.logados[codigo]
 
+    def salvar(self):
+        users = []
+        for u in self.usuarios:
+            users.append(vars(u))
+        with open(self.caminho, "w", encoding="utf-8") as arquivo:
+            json.dump(users, arquivo, indent=4, ensure_ascii=False)
+
+    def cadastrar(self, usuario, senha, nome):
+        for u in self.usuarios:
+            if u.usuario == usuario:
+                return False
+        user = Usuario(usuario, senha, nome)
+        self.usuarios.append(user)
+        self.salvar()
+        return True
+
+    def existe(self, usuario):
+        for u in self.usuarios:
+            if u.usuario == usuario:
+                return True
+        return False
+
+

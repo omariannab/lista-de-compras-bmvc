@@ -4,10 +4,14 @@
         "senha": "191",
         "nome": "Marianna"
     },
-
     {
         "usuario": "isa",
         "senha": "108",
         "nome": "Isabella"
+    },
+    {
+        "usuario": "alice",
+        "senha": "3011",
+        "nome": "Alice"
     }
 ]

@@ -19,11 +19,12 @@
         <div class="folha">
             <form class="form-login" action="/login" method="post">
                 <label for="usuario">Usuário</label>
-                <input type="text" id="usuario" name="usuario" required">
+                <input type="text" id="usuario" name="usuario" required>
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" required>
                 <p class="erro">{{erro}}</p>
                 <button type="submit">Entrar</button>
+                <a href="/cadastro" class="voltar">Cadastrar-se</a>
             </form>
         </div>
     </div>

@@ -1,8 +1,16 @@
 [
     {
-        "id": 1,
-        "nome": "Açúcar",
-        "quantidade": "1kg",
+        "id": 2,
+        "nome": "Sabonete",
+        "quantidade": "3",
+        "lista_id": 3,
         "comprado": false
+    },
+    {
+        "id": 3,
+        "nome": "Leite",
+        "quantidade": "3 caixas",
+        "lista_id": 3,
+        "comprado": true
     }
 ]

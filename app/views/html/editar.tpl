@@ -22,7 +22,7 @@
                 <input type="text" name="quantidade" value="{{produto.quantidade}}">
                 <button type="submit">Salvar</button>
             </form>
-            <a class="voltar" href="/lista">← voltar</a>
+            <a class="voltar" href="/lista/{{produto.lista_id}}">← voltar</a>
         </div>
     </div>
 </body>

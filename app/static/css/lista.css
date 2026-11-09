@@ -154,6 +154,63 @@ td {
     margin-left: 8px;
 }
 
+/* ---------- Minhas listas ---------- */
+
+.item-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 8px;
+    border-bottom: 2px dashed #E1E8F0;
+}
+
+.item-lista:hover {
+    background-color: #F3F7FC;
+}
+
+.item-lista a {
+    font-size: 22px;
+    color: #2C3E50;
+    text-decoration: none;
+    display: block;
+}
+
+.titulo-lista {
+    font-size: 22px;
+}
+
+.nome-lista {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-lista .dono {
+    font-size: 12px;
+    background-color: #D6E6F7;
+    color: #3A6EA5;
+    padding: 1px 10px;
+    border-radius: 10px;
+}
+
+.info {
+    flex: 1;
+}
+
+.info small {
+    display: block;
+    font-size: 14px;
+    color: #6B7B8C;
+    margin-top: 2px;
+}
+
+.vazio {
+    color: #6B7B8C;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+}
+
 /* ---------- Botões e caixas de texto ---------- */
 
 button {
@@ -305,4 +362,135 @@ input:focus {
     font-size: 14px;
     margin: 0;
     min-height: 18px;
+}
+
+/* ---------- Participantes no topo ---------- */
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pessoas {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bolinha {
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color: white;
+    color: #3A6EA5;
+    border: 2px solid #3A6EA5;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -8px;
+}
+
+.bolinha.mais {
+    background-color: transparent;
+    color: white;
+    border: 2px dashed white;
+    font-size: 20px;
+    margin-left: 14px;
+    cursor: pointer;
+}
+
+.painel {
+    display: none;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    z-index: 5;
+    width: 300px;
+    background-color: white;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(44, 62, 80, 0.25);
+}
+
+.painel.aberto {
+    display: block;
+}
+
+.painel form {
+    display: flex;
+    gap: 8px;
+}
+
+.painel input {
+    font-size: 15px;
+    padding: 5px 12px;
+}
+
+.painel button {
+    font-size: 15px;
+    padding: 6px 14px;
+}
+
+.topo .erro {
+    color: #FFD6D6;
+}
+
+/*remover pessoa*/
+
+.linha-pessoa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #F4F8FC;
+}
+
+.lista-participantes {
+    margin-bottom: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.painel .remover {
+    background-color: transparent;
+    color: #3A6EA5;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 0;
+}
+
+.painel .remover:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/* excluir lista */
+
+.item-lista form {
+    margin-left: 16px;
+}
+
+.excluir_lista {
+    background-color: transparent;
+    color: #C0504D;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 0;
+}
+
+.excluir_lista:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/*rodapé*/
+
+.rodape-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

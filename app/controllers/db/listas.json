@@ -1,0 +1,19 @@
+[
+    {
+        "id": 2,
+        "nome": "Mercado",
+        "dono": "alice",
+        "participantes": [
+            "alice"
+        ]
+    },
+    {
+        "id": 3,
+        "nome": "Mercado",
+        "dono": "mari",
+        "participantes": [
+            "mari",
+            "isa"
+        ]
+    }
+]
