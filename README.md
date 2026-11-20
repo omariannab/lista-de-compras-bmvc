@@ -125,3 +125,14 @@ Aparecem ao vivo:
 | `app/controllers/db/` | arquivos JSON com os dados |
 | `app/views/html/` | páginas: entrada, cadastro, minhas listas, lista e edição de produto |
 | `app/static/` | CSS e JavaScript (`lista.js` recebe os avisos do WebSocket) |
+
+## Jornada do usuário e blueprint do serviço
+
+A persona é a **Luísa**, 21 anos, estudante que mora numa república e divide as compras da casa com as colegas Paula e Ana.
+
+- **Jornada do usuário:** [docs/jornada-do-usuario.md](docs/jornada-do-usuario.md) · [vídeo](https://youtu.be/Wh0kgWeWqeM)
+- **Blueprint do serviço:** imagem abaixo
+
+O blueprint segue as etapas da jornada (colunas) em cinco camadas (linhas): evidências, ações do usuário, interface, lógica e dados.
+
+![Blueprint do serviço](docs/Blueprint_Lista_de_Compras.drawio.png)
